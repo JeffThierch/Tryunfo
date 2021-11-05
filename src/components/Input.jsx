@@ -4,7 +4,7 @@ import './Form.css';
 
 class Input extends Component {
   render() {
-    const { label, name, type, test, placeholder } = this.props;
+    const { label, name, type, test, placeholder, value, onChange } = this.props;
     return (
       <label htmlFor={ name }>
         {label}
@@ -14,6 +14,8 @@ class Input extends Component {
           id={ name }
           data-testid={ test }
           placeholder={ placeholder }
+          value={ value }
+          onChange={ onChange }
         />
       </label>
     );
@@ -26,6 +28,8 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   test: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Input;
