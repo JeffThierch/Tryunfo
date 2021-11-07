@@ -17,9 +17,9 @@ class App extends React.Component {
       cardTrunfo: false,
       isSaveButtonDisabled: true,
       savedCards: [],
-      haveTrunfo: false,
-
+      hasTrunfo: false,
     };
+
     this.onInputChange = this.onInputChange.bind(this);
     this.handleErrors = this.handleErrors.bind(this);
     this.clearInputs = this.clearInputs.bind(this);
@@ -66,9 +66,9 @@ class App extends React.Component {
 
   onSaveButtonClick() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, savedCards, cardTrunfo } = this.state;
-    this.setState({
-      savedCards: [...savedCards,
+      cardAttr3, cardImage, cardRare, cardTrunfo } = this.state;
+    this.setState((prevState) => ({
+      savedCards: [...prevState.savedCards,
         { cardName,
           cardDescription,
           cardAttr1,
@@ -78,9 +78,8 @@ class App extends React.Component {
           cardRare,
           cardTrunfo },
       ],
-    });
+    }), () => this.setState({ hasTrunfo: this.verifySuperTrunfo() }));
     this.clearInputs();
-    this.verifySuperTrunfo();
   }
 
   clearInputs() {
@@ -100,17 +99,14 @@ class App extends React.Component {
   verifySuperTrunfo() {
     const { savedCards } = this.state;
 
-    const haveSuperTrunfo = savedCards.filter((card) => card.cardTrunfo === false);
-
-    this.setState({
-      haveTrunfo: haveSuperTrunfo.length !== 0,
-    });
+    return savedCards.some(({ cardTrunfo }) => cardTrunfo);
   }
 
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled,
-      haveTrunfo, savedCards } = this.state;
+      hasTrunfo, savedCards } = this.state;
+
     return (
       <>
         <header>
@@ -130,7 +126,7 @@ class App extends React.Component {
             isSaveButtonDisabled={ isSaveButtonDisabled }
             onInputChange={ this.onInputChange }
             onSaveButtonClick={ this.onSaveButtonClick }
-            haveTrunfo={ haveTrunfo }
+            hasTrunfo={ hasTrunfo }
           />
           <Card
             cardName={ cardName }
