@@ -17,12 +17,14 @@ class App extends React.Component {
       cardTrunfo: false,
       isSaveButtonDisabled: true,
       savedCards: [],
+      haveTrunfo: false,
 
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.handleErrors = this.handleErrors.bind(this);
     this.clearInputs = this.clearInputs.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.verifySuperTrunfo = this.verifySuperTrunfo.bind(this);
   }
 
   handleErrors() {
@@ -78,6 +80,7 @@ class App extends React.Component {
       ],
     });
     this.clearInputs();
+    this.verifySuperTrunfo();
   }
 
   clearInputs() {
@@ -93,9 +96,20 @@ class App extends React.Component {
     });
   }
 
+  verifySuperTrunfo() {
+    const { savedCards } = this.state;
+
+    const haveSuperTrunfo = savedCards.filter((card) => card.cardTrunfo === true);
+
+    this.setState({
+      haveTrunfo: haveSuperTrunfo.length === 0,
+    });
+  }
+
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled } = this.state;
+      cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled,
+      haveTrunfo } = this.state;
     return (
       <>
         <header>
@@ -115,6 +129,7 @@ class App extends React.Component {
             isSaveButtonDisabled={ isSaveButtonDisabled }
             onInputChange={ this.onInputChange }
             onSaveButtonClick={ this.onSaveButtonClick }
+            haveTrunfo={ haveTrunfo }
           />
           <Card
             cardName={ cardName }
