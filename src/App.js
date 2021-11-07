@@ -93,23 +93,24 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      isSaveButtonDisabled: true,
     });
   }
 
   verifySuperTrunfo() {
     const { savedCards } = this.state;
 
-    const haveSuperTrunfo = savedCards.filter((card) => card.cardTrunfo === true);
+    const haveSuperTrunfo = savedCards.filter((card) => card.cardTrunfo === false);
 
     this.setState({
-      haveTrunfo: haveSuperTrunfo.length === 0,
+      haveTrunfo: haveSuperTrunfo.length !== 0,
     });
   }
 
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled,
-      haveTrunfo } = this.state;
+      haveTrunfo, savedCards } = this.state;
     return (
       <>
         <header>
@@ -142,6 +143,21 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
           />
         </main>
+        <section>
+          {savedCards.map((card, index) => (
+            <Card
+              key={ index }
+              cardName={ card.cardName }
+              cardDescription={ card.cardDescription }
+              cardAttr1={ card.cardAttr1 }
+              cardAttr2={ card.cardAttr2 }
+              cardAttr3={ card.cardAttr3 }
+              cardImage={ card.cardImage }
+              cardRare={ card.cardRare }
+              cardTrunfo={ card.cardTrunfo }
+            />
+          ))}
+        </section>
       </>
     );
   }
