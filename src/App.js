@@ -97,6 +97,7 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       isSaveButtonDisabled: true,
+      filterName: 'all',
     });
   }
 
@@ -187,14 +188,15 @@ class App extends React.Component {
             </label>
           </div>
           {savedCards.filter((card) => {
-            if (filterName === 'all' && filterRare === 'todas'
-            && filterTrunfo === false) {
+            if (filterTrunfo === true) {
+              return card.cardTrunfo === true;
+            }
+            if ((filterName === 'all' || filterName === '') && filterRare === 'todas'
+            ) {
               return true;
             }
-            return (card.cardName.includes(filterName)
-            || filterRare === card.cardRare
-            || filterTrunfo === card.cardTrunfo);
-          }).map((card, index) => (
+            return (card.cardRare === filterRare || card.cardName.includes(filterName));
+          }, () => clearInputs()).map((card, index) => (
             <Card
               key={ index }
               cardName={ card.cardName }
