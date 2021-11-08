@@ -18,6 +18,8 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       savedCards: [],
       hasTrunfo: false,
+      filterName: 'all',
+      filterRare: 'todas',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -115,7 +117,7 @@ class App extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled,
-      hasTrunfo, savedCards } = this.state;
+      hasTrunfo, savedCards, filterName, filterRare } = this.state;
 
     return (
       <>
@@ -152,7 +154,31 @@ class App extends React.Component {
           />
         </main>
         <section className="cards-container">
-          {savedCards.map((card, index) => (
+          <div className="filters-container">
+            <input
+              type="text"
+              name="filterName"
+              data-testid="name-filter"
+              placeholder="Nome da carta"
+              onChange={ this.onInputChange }
+            />
+            <select
+              name="filterRare"
+              onChange={ this.onInputChange }
+              data-testid="rare-filter"
+            >
+              <option>todas</option>
+              <option>normal</option>
+              <option>raro</option>
+              <option>muito raro</option>
+            </select>
+          </div>
+          {savedCards.filter((card) => {
+            if (filterName === 'all' && filterRare === 'todas') {
+              return true;
+            }
+            return card.cardName.includes(filterName) || filterRare === card.cardRare;
+          }).map((card, index) => (
             <Card
               key={ index }
               cardName={ card.cardName }
