@@ -20,6 +20,7 @@ class App extends React.Component {
       hasTrunfo: false,
       filterName: 'all',
       filterRare: 'todas',
+      filterTrunfo: false,
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -117,7 +118,7 @@ class App extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled,
-      hasTrunfo, savedCards, filterName, filterRare } = this.state;
+      hasTrunfo, savedCards, filterName, filterRare, filterTrunfo } = this.state;
 
     return (
       <>
@@ -161,23 +162,38 @@ class App extends React.Component {
               data-testid="name-filter"
               placeholder="Nome da carta"
               onChange={ this.onInputChange }
+              disabled={ filterTrunfo }
             />
             <select
               name="filterRare"
               onChange={ this.onInputChange }
               data-testid="rare-filter"
+              disabled={ filterTrunfo }
             >
               <option>todas</option>
               <option>normal</option>
               <option>raro</option>
               <option>muito raro</option>
             </select>
+            <label htmlFor="filterTrunfo">
+              <input
+                type="checkbox"
+                name="filterTrunfo"
+                id="filterTrunfo"
+                data-testid="trunfo-filter"
+                onChange={ this.onInputChange }
+              />
+              Super Trunfo
+            </label>
           </div>
           {savedCards.filter((card) => {
-            if (filterName === 'all' && filterRare === 'todas') {
+            if (filterName === 'all' && filterRare === 'todas'
+            && filterTrunfo === false) {
               return true;
             }
-            return card.cardName.includes(filterName) || filterRare === card.cardRare;
+            return (card.cardName.includes(filterName)
+            || filterRare === card.cardRare
+            || filterTrunfo === card.cardTrunfo);
           }).map((card, index) => (
             <Card
               key={ index }
