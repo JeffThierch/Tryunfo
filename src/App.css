@@ -13,3 +13,7 @@ header {
 .main-container {
   display: flex;
 }
+
+.cards-container {
+  display: flex;
+}

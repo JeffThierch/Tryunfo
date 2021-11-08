@@ -25,6 +25,7 @@ class App extends React.Component {
     this.clearInputs = this.clearInputs.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.verifySuperTrunfo = this.verifySuperTrunfo.bind(this);
+    this.removeCard = this.removeCard.bind(this);
   }
 
   handleErrors() {
@@ -102,6 +103,15 @@ class App extends React.Component {
     return savedCards.some(({ cardTrunfo }) => cardTrunfo);
   }
 
+  removeCard({ target: { name } }) {
+    const { savedCards } = this.state;
+    this.setState({
+      savedCards: savedCards.filter(({ cardName }) => (
+        cardName !== name
+      )),
+    }, () => this.setState({ hasTrunfo: this.verifySuperTrunfo() }));
+  }
+
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled,
@@ -137,9 +147,11 @@ class App extends React.Component {
             cardImage={ cardImage }
             cardRare={ cardRare }
             cardTrunfo={ cardTrunfo }
+            isCardPreview={ false }
+            removeCard={ this.removeCard }
           />
         </main>
-        <section>
+        <section className="cards-container">
           {savedCards.map((card, index) => (
             <Card
               key={ index }
@@ -151,6 +163,8 @@ class App extends React.Component {
               cardImage={ card.cardImage }
               cardRare={ card.cardRare }
               cardTrunfo={ card.cardTrunfo }
+              isCardPreview
+              removeCard={ this.removeCard }
             />
           ))}
         </section>
