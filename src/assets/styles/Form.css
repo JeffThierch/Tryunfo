@@ -1,0 +1,78 @@
+.card-form-container {
+  align-items: center;
+  background-color: rgb(241, 243, 243);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-around;
+  padding: 1rem 0;
+  width: 50%;
+}
+
+.card-form-container label {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-form-container input[ type = 'text' ], input[ type = 'number' ] {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px;
+  padding: 0.5rem;
+  width: 12rem;
+}
+
+.card-form-container textarea {
+  border: none;
+  box-shadow: 1px 1px 1px;
+  height: 3rem;
+  width: 12rem;
+}
+
+.rare-container label {
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 1rem 0;
+}
+
+
+.card-rare-select {
+  background-color: rgb(255, 251, 251);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin-left: 1rem;
+  padding: 0.2rem;
+}
+
+.btn-form-submit {
+  background-color: #201f1f;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 0.5rem;
+  transition: all 0.4s ease;
+  width: 80%;
+}
+
+.btn-form-submit:hover {
+  box-shadow: 2px 1px 2px 1px rgb(14, 49, 163) , 3px 2px 3px 2px rgb(214, 29, 69) , 4px 3px 4px 3px rgb(201, 36, 151);
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+.btn-form-submit:disabled {
+  box-shadow: none;
+  cursor: not-allowed ;
+  opacity: 0.4;
+}
+
+.btn-form-submit:disabled:hover {
+  border: 3px solid rgb(228, 11, 11);
+}
+
+.imgTEst {
+  color: white;
+  height: 10px;
+}

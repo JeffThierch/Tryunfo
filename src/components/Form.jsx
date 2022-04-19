@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input';
+import '../assets/styles/Form.css';
 
 class Form extends Component {
   render() {
@@ -46,6 +47,8 @@ class Form extends Component {
           type="number"
           test="attr1-input"
           placeholder="Insira o ataque "
+          min={ 0 }
+          max={ 90 }
           value={ cardAttr1 }
           onChange={ onInputChange }
         />
@@ -55,6 +58,8 @@ class Form extends Component {
           type="number"
           test="attr2-input"
           placeholder="Insira a defesa"
+          min={ 0 }
+          max={ 90 }
           value={ cardAttr2 }
           onChange={ onInputChange }
         />
@@ -64,6 +69,8 @@ class Form extends Component {
           type="number"
           test="attr3-input"
           placeholder="Insira a mana"
+          min={ 0 }
+          max={ 90 }
           value={ cardAttr3 }
           onChange={ onInputChange }
         />
@@ -76,44 +83,47 @@ class Form extends Component {
           value={ cardImage }
           onChange={ onInputChange }
         />
-        <label htmlFor="cardRare">
-          Raridade
-          <select
-            data-testid="rare-input"
-            id="cardRare"
-            name="cardRare"
-            value={ cardRare }
-            onChange={ onInputChange }
-          >
-            <option value="normal" defaultValue>
-              Normal
-            </option>
-            <option value="raro">Raro</option>
-            <option value="muito raro">Muito Raro</option>
-          </select>
-        </label>
-        {
-          hasTrunfo ? 'Você já tem um Super Trunfo em seu baralho' : (
-            <label htmlFor="cardTrunfo">
-              <input
-                type="checkbox"
-                id="cardTrunfo"
-                name="cardTrunfo"
-                data-testid="trunfo-input"
-                checked={ cardTrunfo }
-                onChange={ onInputChange }
-              />
-              Super Trunfo
-            </label>
-          )
-
-        }
+        <div className="rare-container">
+          <label htmlFor="cardRare">
+            Raridade:
+            <select
+              data-testid="rare-input"
+              id="cardRare"
+              name="cardRare"
+              value={ cardRare }
+              onChange={ onInputChange }
+              className="card-rare-select"
+            >
+              <option value="normal" defaultValue>
+                Normal
+              </option>
+              <option value="raro">Raro</option>
+              <option value="muito raro">Muito Raro</option>
+            </select>
+          </label>
+          {
+            hasTrunfo ? 'Você já tem um Super Trunfo em seu baralho' : (
+              <label htmlFor="cardTrunfo">
+                Super Trunfo
+                <input
+                  type="checkbox"
+                  id="cardTrunfo"
+                  name="cardTrunfo"
+                  data-testid="trunfo-input"
+                  checked={ cardTrunfo }
+                  onChange={ onInputChange }
+                />
+              </label>
+            )
+          }
+        </div>
 
         <button
           type="button"
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
+          className="btn-form-submit"
         >
           Salvar
         </button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
-import './App.css';
+import './assets/styles/App.css';
 
 class App extends React.Component {
   constructor() {
@@ -107,7 +107,7 @@ class App extends React.Component {
     return savedCards.some(({ cardTrunfo }) => cardTrunfo);
   }
 
-  removeCard({ target: { name } }) {
+  removeCard(name) {
     const { savedCards } = this.state;
     this.setState({
       savedCards: savedCards.filter(({ cardName }) => (
@@ -123,9 +123,8 @@ class App extends React.Component {
 
     return (
       <>
-        <header>
-          <h1>Tryunfo</h1>
-
+        <header className="header-container">
+          <h1 className="header-title">Tryunfo</h1>
         </header>
         <main className="main-container">
           <Form
@@ -156,6 +155,9 @@ class App extends React.Component {
           />
         </main>
         <section className="cards-container">
+          <div className="cards-created-title">
+            <h1>Suas Cartas</h1>
+          </div>
           <div className="filters-container">
             <input
               type="text"
@@ -171,13 +173,14 @@ class App extends React.Component {
               data-testid="rare-filter"
               disabled={ filterTrunfo }
             >
-              <option>todas</option>
-              <option>normal</option>
-              <option>raro</option>
-              <option>muito raro</option>
+              <option value="todas">Todas</option>
+              <option value="normal">Normal</option>
+              <option value="raro">Raro</option>
+              <option value="muito raro">Muito raro</option>
             </select>
             <label htmlFor="filterTrunfo">
               <input
+                className="filter-by-trunfo"
                 type="checkbox"
                 name="filterTrunfo"
                 id="filterTrunfo"
@@ -187,30 +190,33 @@ class App extends React.Component {
               Super Trunfo
             </label>
           </div>
-          {savedCards.filter((card) => {
-            if (filterTrunfo === true) {
-              return card.cardTrunfo === true;
-            }
-            if ((filterName === 'all' || filterName === '') && filterRare === 'todas'
-            ) {
-              return true;
-            }
-            return (card.cardRare === filterRare || card.cardName.includes(filterName));
-          }, () => clearInputs()).map((card, index) => (
-            <Card
-              key={ index }
-              cardName={ card.cardName }
-              cardDescription={ card.cardDescription }
-              cardAttr1={ card.cardAttr1 }
-              cardAttr2={ card.cardAttr2 }
-              cardAttr3={ card.cardAttr3 }
-              cardImage={ card.cardImage }
-              cardRare={ card.cardRare }
-              cardTrunfo={ card.cardTrunfo }
-              isCardPreview
-              removeCard={ this.removeCard }
-            />
-          ))}
+          <section className="created-cards-preview">
+            {savedCards.filter((card) => {
+              if (filterTrunfo === true) {
+                return card.cardTrunfo === true;
+              }
+              if ((filterName === 'all' || filterName === '') && filterRare === 'todas'
+              ) {
+                return true;
+              }
+              return (card.cardRare === filterRare
+                || (card.cardName.includes(filterName)));
+            }, () => clearInputs()).map((card, index) => (
+              <Card
+                key={ index }
+                cardName={ card.cardName }
+                cardDescription={ card.cardDescription }
+                cardAttr1={ card.cardAttr1 }
+                cardAttr2={ card.cardAttr2 }
+                cardAttr3={ card.cardAttr3 }
+                cardImage={ card.cardImage }
+                cardRare={ card.cardRare }
+                cardTrunfo={ card.cardTrunfo }
+                isCardPreview
+                removeCard={ this.removeCard }
+              />
+            ))}
+          </section>
         </section>
       </>
     );

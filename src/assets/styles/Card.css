@@ -1,0 +1,99 @@
+.card-preview-container {
+  align-items: center;
+  background-color: #201f1f;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 50%;
+}
+
+.card-name {
+  padding: 0.5rem;
+}
+
+.image-card-container {
+  position: relative;
+}
+
+.card-image {
+  border: solid 1px rgb(37, 37, 37);
+  color: transparent;
+  height: 13rem;
+  margin: 0 2px;
+  object-fit: cover;
+  width: 15rem;
+}
+
+.card-description-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.card-description {
+  max-height: 4.5rem;
+  max-width: 15rem;
+  overflow-y: auto;
+  word-wrap: break-word;
+
+}
+
+.card-preview {
+  align-items: center;
+  background-color: rgb(243, 241, 241);
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.856);
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.card-attrs-list {
+  list-style-type: none;
+  margin: 0.4rem 0;
+  width: 95%;
+}
+
+.att-li {
+  color: rgb(201, 24, 92);
+  margin: 5px 0;
+}
+
+.card-att-number {
+  background-color: black;
+  color: white;
+  margin-right: 2px;
+  padding: 0.1rem 0.3rem;
+}
+
+.card-rare {
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+  text-transform: capitalize;
+}
+
+.card-trunfo {
+  bottom: 0.5rem;
+  height: 4rem;
+  position: absolute;
+  right: 0.12rem;
+}
+
+.delete-btn {
+  border: none;
+  opacity: 0.8;
+  transition: all 0.4s ease;
+}
+
+.delete-btn:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.trash-icon {
+  color: red;
+  height: 1.7rem;
+}
+
